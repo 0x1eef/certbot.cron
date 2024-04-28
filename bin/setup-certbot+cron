@@ -3,6 +3,7 @@
 ##
 # variables
 parent="$(dirname $(realpath "$0"))"
+homedir=$(realpath "${parent}/../share/certbot+cron/home/_certbot")
 
 ##
 # main
@@ -13,6 +14,7 @@ fi
 
 if id "-u" "_certbot" > /dev/null 2>&1; then
    printf "[-] The _certbot user already exists\n"
+   cp -Rfv "${homedir}/" /home/_certbot/
 else
     set -x
     pw useradd \
@@ -21,7 +23,7 @@ else
         -s "/sbin/nologin" \
         -c "certbot+cron user account" \
         -d "/home/_certbot" \
-        -mk "$(realpath "${parent}/../share/certbot+cron/home/_certbot")"
+        -mk "${homedir}"
     set +x
 fi
 
