@@ -14,7 +14,7 @@ fi
 
 if id "-u" "_certbot" > /dev/null 2>&1; then
    printf "[-] The _certbot user already exists\n"
-   cp -Rfv "${homedir}/" /home/_certbot/
+   cp -Rfv "${homedir}"/* /home/_certbot/
 else
     set -x
     pw useradd \
