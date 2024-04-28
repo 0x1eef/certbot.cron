@@ -34,7 +34,7 @@ find /home/_certbot \
 find /home/_certbot \
     -type f \
     -exec chmod u=rwx,g=rx,o= {} \;
-chmod u=rwx,g=rx,o= /home/_certbot/.env
+chmod u=rw,g=r,o= /home/_certbot/.env
 set +x
 
 "${parent}"/../libexec/certbot+cron/setup-cron
