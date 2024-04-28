@@ -15,6 +15,8 @@ and the platform is assumed to be FreeBSD-based.
     # Clone repository
     $ git clone https://github.com/0x1eef/certbot.cron
     $ cd certbot.cron
+
+    # Install (as root)
     # doas -u root -- make install
     # doas -u root -- setup-certbot+cron
 
