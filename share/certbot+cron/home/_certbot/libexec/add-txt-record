@@ -26,3 +26,5 @@ curl -X POST \
      -d "RecordType1=TXT" \
      -d "Address1=${txt}" \
      -d "ttl=60"
+echo "[-] Wait 2 minutes"
+sleep 120
