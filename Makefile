@@ -1,7 +1,7 @@
 PREFIX=/usr/local
 
 install:
-	find ./bin \
+	@find bin \
 		 -type f \
 		 -exec install \
 			-v \
@@ -10,7 +10,7 @@ install:
 			-m "u=rwx,go=rx" \
 			"{}" "$(PREFIX)"/"{}" \;
 
-	find ./libexec/certbot+cron \
+	@find libexec/certbot+cron \
 		-type d \
 		-exec install \
 			-v \
@@ -18,8 +18,8 @@ install:
 			-o root \
 			-g wheel \
 			-m "u=rwx,go=rx" \
-			"{}" "$(PREFIX)"/"{}" \;
-	find ./libexec/certbot+cron \
+			"$(PREFIX)"/"{}" \;
+	@find libexec/certbot+cron \
 		-type f \
 		-exec install \
 		      -v \
@@ -28,7 +28,7 @@ install:
 		      -m "u=rwx,go=rx" \
 		      "{}" "$(PREFIX)"/"{}" \;
 
-	find ./share/certbot+cron \
+	@find share/certbot+cron \
 		-type d \
 		-exec install \
 		      -v \
@@ -36,8 +36,8 @@ install:
 		      -o root \
 		      -g wheel \
 		      -m "u=rwx,go=rx" \
-		      "{}" "$(PREFIX)"/"{}" \;
-	find ./share/certbot+cron \
+		      "$(PREFIX)"/"{}" \;
+	@find share/certbot+cron \
 		-type f \
 		-exec install \
 		      -v \
