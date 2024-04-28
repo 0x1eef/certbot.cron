@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+##
+# variables
+user="_certbot"
+parent="$(dirname $(realpath "$0"))"
+
+##
+# functions
+install_crontab()
+{
+    set -x
+    tab="$(realpath ${parent}/../../share/certbot+cron/crontab)"
+    dest="/var/cron/tabs/${user}"
+    if [ -e "${dest}" ]; then
+        yes | crontab -u "${user}" -r
+    fi
+    crontab -u "${user}" "${tab}"
+    chmod u=rw,g=,o= "${dest}"
+    echo "[-] New crontab: ${dest}"
+    set +x
+}
+
+##
+# main
+allowfile="/var/cron/allow"
+if [ -e "${allowfile}" ]; then
+    if ! grep "${user}" "${allowfile}" > /dev/null 2>&1; then
+        echo "[x] Add ${user} to ${allowfile} to continue"
+        exit 1
+    fi
+    echo "[-] ${user} exists in ${allowfile}"
+fi
+install_crontab

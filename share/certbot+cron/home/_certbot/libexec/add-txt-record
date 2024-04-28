@@ -1,0 +1,27 @@
+#!/bin/sh -e
+
+##
+# variables
+. "${HOME}"/.env
+user="${NAMECHEAP_USER}"
+key="${NAMECHEAP_APIKEY}"
+myip="${NAMECHEAP_CLIENTIP}"
+sld="${NAMECHEAP_SLD}"
+tld="${NAMECHEAP_TLD}"
+txt="${CERTBOT_VALIDATION}"
+
+##
+# main
+curl -X POST \
+     "https://sandbox.api.namecheap.com/xml.response?" \
+     -d "ApiUser=${user}" \
+     -d "ApiKey=${key}" \
+     -d "UserName=${user}" \
+     -d "ClientIp=${myip}" \
+     -d "Command=namecheap.domains.dns.setHosts" \
+     -d "SLD=${sld}" \
+     -d "TLD=${tld}" \
+     -d "HostName1=_acme-challenge" \
+     -d "RecordType1=TXT" \
+     -d "Address1=${txt}" \
+     -d "ttl=60"

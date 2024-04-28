@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+##
+# variables
+myhome=$(realpath "..")
+
+##
+# main
+set -x
+certbot renew \
+    --manual \
+    --manual-auth-hook "${myhome}"/libexec/add-txt-record
+    --preferred-challenges dns \
+    --logs-dir "${myhome}/log" \
+    --config-dir "${myhome}" \
+    --work-dir "${myhome}"

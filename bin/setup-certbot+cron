@@ -1,0 +1,38 @@
+#!/bin/sh -e
+
+##
+# variables
+parent="$(dirname $(realpath "$0"))"
+
+##
+# main
+if [ "$(id -u)" != "0" ]; then
+   printf "[x] This command must be run by root\n"
+   exit 1
+fi
+
+if id "-u" "_certbot" > /dev/null 2>&1; then
+   printf "[-] The _certbot user already exists\n"
+else
+    set -x
+    pw useradd \
+        -n "_certbot" \
+        -M "u=rwx,g=rx,o=" \
+        -s "/sbin/nologin" \
+        -c "certbot+cron user account" \
+        -d "/home/_certbot" \
+        -mk "$(realpath "${parent}/../share/certbot+cron/home/_certbot")"
+    set +x
+fi
+
+set -x
+find /home/_certbot \
+    -type d \
+    -exec chmod u=rwx,g=rx,o= {} \;
+find /home/_certbot \
+    -type f \
+    -exec chmod u=rwx,g=rx,o= {} \;
+chmod u=rw,go= /home/_certbot/.env
+set +x
+
+"${parent}"/../libexec/certbot+cron/setup-cron
