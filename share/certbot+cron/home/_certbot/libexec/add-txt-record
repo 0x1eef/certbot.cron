@@ -3,7 +3,8 @@
 ##
 # variables
 . "${HOME}"/.env
-user="${NAMECHEAP_USER}"
+host="${NAMECHEAP_APIHOST:-api.namecheap.com}"
+user="${NAMECHEAP_APIUSER}"
 key="${NAMECHEAP_APIKEY}"
 myip="${NAMECHEAP_CLIENTIP}"
 sld="${NAMECHEAP_SLD}"
@@ -13,7 +14,7 @@ txt="${CERTBOT_VALIDATION}"
 ##
 # main
 curl -X POST \
-     "https://sandbox.api.namecheap.com/xml.response?" \
+     "https://${host}/xml.response?" \
      -d "ApiUser=${user}" \
      -d "ApiKey=${key}" \
      -d "UserName=${user}" \
