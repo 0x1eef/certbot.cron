@@ -4,6 +4,7 @@ install:
 	find ./bin \
 		 -type f \
 		 -exec install \
+			-v \
 			-o root \
 			-g wheel \
 			-m "u=rwx,go=rx" \
@@ -12,6 +13,7 @@ install:
 	find ./libexec/certbot+cron \
 		-type d \
 		-exec install \
+			-v \
 			-d \
 			-o root \
 			-g wheel \
@@ -20,6 +22,7 @@ install:
 	find ./libexec/certbot+cron \
 		-type f \
 		-exec install \
+		      -v \
 		      -o root \
 		      -g wheel \
 		      -m "u=rwx,go=rx" \
@@ -28,6 +31,7 @@ install:
 	find ./share/certbot+cron \
 		-type d \
 		-exec install \
+		      -v \
 		      -d \
 		      -o root \
 		      -g wheel \
@@ -36,6 +40,7 @@ install:
 	find ./share/certbot+cron \
 		-type f \
 		-exec install \
+		      -v \
 		      -o root \
 		      -g wheel \
 		      -m "u=rw,go=r" \
