@@ -2,7 +2,7 @@
 
 ##
 # variables
-myhome=$(realpath "..")
+myhome=$(dirname $(realpath "../$0"))
 
 ##
 # main
