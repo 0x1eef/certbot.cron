@@ -9,7 +9,7 @@ myhome=$(dirname $(realpath $(dirname "$0")))
 set -x
 certbot renew \
     --manual \
-    --manual-auth-hook "${myhome}"/libexec/add-txt-record
+    --manual-auth-hook "${myhome}"/libexec/add-txt-record \
     --preferred-challenges dns \
     --logs-dir "${myhome}/log" \
     --config-dir "${myhome}" \
