@@ -28,6 +28,6 @@ curl -X POST \
      -d "ttl=60"
 
 echo
-echo "[-] Wait 2 minutes"
-sleep 120
+echo "[-] Wait 15 minutes"
+sleep 900
 echo
