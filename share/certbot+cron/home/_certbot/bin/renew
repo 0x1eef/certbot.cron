@@ -2,7 +2,9 @@
 
 ##
 # variables
-myhome=$(dirname $(realpath $(dirname "$0")))
+localbase="${LOCALBASE:-/usr/local}"
+myhome="$(dirname $(realpath $(dirname "$0")))"
+etcdir="${localbase}"/etc/letsencrypt
 
 ##
 # main
@@ -12,5 +14,5 @@ certbot renew \
     --manual-auth-hook "${myhome}"/libexec/add-txt-record \
     --preferred-challenges dns \
     --logs-dir "${myhome}/log" \
-    --config-dir "${myhome}" \
+    --config-dir "${etcdir}" \
     --work-dir "${myhome}"
