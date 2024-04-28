@@ -7,8 +7,8 @@ HTTPS certificates at regular intervals via
 The renew process is based on the "manual" certbot
 plugin and a DNS-based challenge. The domain is
 assumed to be leased from
-[namecheap](https://namecheap.com).
-The platform is assumed to be FreeBSD-based.
+[namecheap](https://namecheap.com),
+and the platform is assumed to be FreeBSD-based.
 
 ## Install
 
