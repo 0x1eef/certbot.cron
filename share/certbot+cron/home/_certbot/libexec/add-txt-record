@@ -43,7 +43,6 @@ defaults=$(
           i=$(expr ${i} + 1)
       done
 )
-
 curl -X POST \
      "https://${host}/xml.response?" \
      -d "ApiUser=${user}" \
@@ -57,7 +56,7 @@ curl -X POST \
      -d "RecordType1=TXT" \
      -d "Address1=${txt}" \
      -d "ttl1=60" \
-     "${defaults}"
+     $(echo "${defaults}")
 echo
 echo "[-] Wait 15 minutes"
 sleep 900
