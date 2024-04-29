@@ -40,6 +40,7 @@ defaults=$(
                    "-d \"Address${i}=${address}\" " \
                    "-d \"TTL${i}=${ttl}\""
           fi
+          i=$(expr ${i} + 1)
       done
 )
 
