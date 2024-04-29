@@ -31,5 +31,5 @@ curl -X POST \
      ${defaults})
 echo
 echo "[-] Wait 15 minutes"
-sleep 900
 echo
+sleep 900
