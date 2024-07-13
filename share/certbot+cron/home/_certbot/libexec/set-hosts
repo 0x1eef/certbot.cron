@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+##
+# variables
+. "${HOME}"/.env
+host="${NAMECHEAP_APIHOST:-api.namecheap.com}"
+user="${NAMECHEAP_APIUSER}"
+key="${NAMECHEAP_APIKEY}"
+myip="${NAMECHEAP_CLIENTIP}"
+sld="${NAMECHEAP_SLD}"
+tld="${NAMECHEAP_TLD}"
+
+##
+# main
+curl -X POST \
+     "https://${host}/xml.response?" \
+     -d "ApiUser=${user}" \
+     -d "ApiKey=${key}" \
+     -d "UserName=${user}" \
+     -d "ClientIp=${myip}" \
+     -d "Command=namecheap.domains.dns.setHosts" \
+     -d "SLD=${sld}" \
+     -d "TLD=${tld}" \
+     $@

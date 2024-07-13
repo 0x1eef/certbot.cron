@@ -1,34 +1,21 @@
-#!/bin/sh -e
+#!/bin/sh
+set -e
 
 ##
 # variables
-. "${HOME}"/.env
-libexec=$(dirname $(realpath "${0}"))
-host="${NAMECHEAP_APIHOST:-api.namecheap.com}"
-user="${NAMECHEAP_APIUSER}"
-key="${NAMECHEAP_APIKEY}"
-myip="${NAMECHEAP_CLIENTIP}"
-sld="${NAMECHEAP_SLD}"
-tld="${NAMECHEAP_TLD}"
+localbase=${LOCALBASE:-$(realpath "$(dirname "$0")"/..)}
+libexec="${localbase}"/libexec
 txt="${CERTBOT_VALIDATION}"
 
 ##
 # main
-defaults=$("${libexec}"/get-default-cmdline)
-curl -X POST \
-     "https://${host}/xml.response?" \
-     -d "ApiUser=${user}" \
-     -d "ApiKey=${key}" \
-     -d "UserName=${user}" \
-     -d "ClientIp=${myip}" \
-     -d "Command=namecheap.domains.dns.setHosts" \
-     -d "SLD=${sld}" \
-     -d "TLD=${tld}" \
-     -d "HostName1=_acme-challenge" \
-     -d "RecordType1=TXT" \
-     -d "Address1=${txt}" \
-     -d "ttl1=60" \
-     ${defaults})
+xml=$("${libexec}"/get-hosts)
+argv=$(echo "${xml}" | "${libexec}"/emit-argv)
+"${libexec}"/set-hosts -d "HostName1=_acme-challenge" \
+                       -d "RecordType1=TXT" \
+                       -d "Address1=${txt}" \
+                       -d "ttl1=60" \
+                       ${argv}
 echo
 echo "[-] Wait 15 minutes"
 echo
