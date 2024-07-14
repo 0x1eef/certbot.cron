@@ -10,10 +10,10 @@ IFS=
 # main
 while read -r line; do
     if echo "${line}" | grep -q "<host"; then
-        hostname=$(echo "$line" | sed -n 's/.* Name="\([^"]*\)".*/\1/p')
-        recordtype=$(echo "$line" | sed -n 's/.*Type="\([^"]*\)".*/\1/p')
-        address=$(echo "$line" | sed -n 's/.*Address="\([^"]*\)".*/\1/p')
-        ttl=$(echo "$line" | sed -n 's/.*TTL="\([^"]*\)".*/\1/p')
+        hostname=$(echo "$line" | sed -n 's|.* Name="\([^"]*\)".*|\1|p')
+        recordtype=$(echo "$line" | sed -n 's|.*Type="\([^"]*\)".*|\1|p')
+        address=$(echo "$line" | sed -n 's|.*Address="\([^"]*\)".*|\1|p')
+        ttl=$(echo "$line" | sed -n 's|.*TTL="\([^"]*\)".*|\1|p')
         if [ "${hostname}" = "_acme-challenge" ]; then
             continue
         fi
