@@ -1,17 +1,32 @@
 ## About
 
-certbot+cron configures py39-certbot to renew
+certbot+cron renews
 [letsencrypt.org](https://letsencrypt.org)
-HTTPS certificates at regular intervals via
+certificates at regular intervals via
+py-certbot and
 [cron(8)](https://man.freebsd.org/cgi/man.cgi?cron(8)).
+
+## Requirements
+
+**Platform requirements**
+
+* [FreeBSD (operating system)](https://www.freebsd.org)
+* [namecheap (DNS provider)](https://namecheap.com)
+
+**Runtime requirements**
+
+* security/py-certbot
+* ftp/curl
 
 ## Install
 
-    # Clone
+**Clone**
+
     user@localhost$ git clone https://github.com/0x1eef/certbot.cron
     user@localhost$ cd certbot.cron
 
-    # Install
+**Install**
+
     root@localhost# make install
     root@localhost# setup-certbot+cron
 
