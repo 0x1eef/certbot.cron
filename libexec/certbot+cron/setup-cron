@@ -26,7 +26,7 @@ install_crontab()
 # main
 allowfile="/var/cron/allow"
 if [ -e "${allowfile}" ]; then
-    if ! grep "${user}" "${allowfile}" > /dev/null 2>&1; then
+    if ! grep -q "${user}" "${allowfile}"; then
         echo "[x] Add ${user} to ${allowfile} to continue"
         exit 1
     fi
