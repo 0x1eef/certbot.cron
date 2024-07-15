@@ -5,7 +5,7 @@ set -e
 # variables
 localbase=$(realpath "$(dirname "$0")"/../..)
 libexec="${localbase}"/libexec/certbot+cron
-txt="${CERTBOT_VALIDATION}"
+challenge="${CERTBOT_VALIDATION}"
 
 ##
 # main
@@ -13,7 +13,7 @@ xml=$("${libexec}"/get-hosts)
 argv=$(echo "${xml}" | "${libexec}"/emit-argv)
 "${libexec}"/set-hosts -d "HostName1=_acme-challenge" \
                        -d "RecordType1=TXT" \
-                       -d "Address1=${txt}" \
+                       -d "Address1=${challenge}" \
                        -d "ttl1=60" \
                        ${argv}
 echo
