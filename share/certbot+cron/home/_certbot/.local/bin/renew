@@ -8,6 +8,13 @@ myhome="${HOME}"
 etcdir="${LOCALBASE:-/usr/local}"/etc/letsencrypt
 
 ##
+# functions
+printok()
+{
+    printf "ok: %s\n" "${1}" > /dev/stdout
+}
+
+##
 # main
 set -x
 certbot renew \
@@ -17,3 +24,4 @@ certbot renew \
         --work-dir "${localbase}" \
         --logs-dir "${localbase}"/var/log \
         --config-dir "${etcdir}"
+printok "done"

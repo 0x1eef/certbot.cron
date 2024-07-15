@@ -8,6 +8,13 @@ libexec="${localbase}"/libexec/certbot+cron
 challenge="${CERTBOT_VALIDATION}"
 
 ##
+# functions
+printok()
+{
+    printf "ok: %s\n" "${1}" > /dev/stdout
+}
+
+##
 # main
 xml=$("${libexec}"/get-hosts)
 argv=$(echo "${xml}" | "${libexec}"/emit-argv)
@@ -16,7 +23,5 @@ argv=$(echo "${xml}" | "${libexec}"/emit-argv)
                        -d "Address1=${challenge}" \
                        -d "ttl1=60" \
                        ${argv}
-echo
-echo "[-] Wait 15 minutes"
-echo
+printok "challenge set"
 sleep 900
