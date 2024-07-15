@@ -12,7 +12,7 @@ etcdir="${LOCALBASE:-/usr/local}"/etc/letsencrypt
 set -x
 certbot renew \
         --manual \
-        --manual-auth-hook "${libexec}"/add-txt-record \
+        --manual-auth-hook "${libexec}"/set-challenge \
         --preferred-challenges dns \
         --work-dir "${localbase}" \
         --logs-dir "${localbase}"/var/log \
