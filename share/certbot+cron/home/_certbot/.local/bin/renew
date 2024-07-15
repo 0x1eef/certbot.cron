@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+##
+# variables
+localbase=$(realpath "$(dirname "$0")"/..)
+libexec="${localbase}"/libexec/certbot+cron
+myhome="${HOME}"
+etcdir="${LOCALBASE:-/usr/local}"/etc/letsencrypt
+
+##
+# main
+set -x
+certbot renew \
+        --manual \
+        --manual-auth-hook "${libexec}"/add-txt-record \
+        --preferred-challenges dns \
+        --work-dir "${localbase}" \
+        --logs-dir "${localbase}"/var/log \
+        --config-dir "${etcdir}"

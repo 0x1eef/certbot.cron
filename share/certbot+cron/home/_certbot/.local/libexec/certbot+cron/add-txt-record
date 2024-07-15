@@ -3,8 +3,8 @@ set -e
 
 ##
 # variables
-localbase=${LOCALBASE:-$(realpath "$(dirname "$0")"/..)}
-libexec="${localbase}"/libexec
+localbase=$(realpath "$(dirname "$0")"/../..)
+libexec="${localbase}"/libexec/certbot+cron
 txt="${CERTBOT_VALIDATION}"
 
 ##
