@@ -19,6 +19,32 @@ printerr()
     printf "error: %s" "${1}" > /dev/stderr
 }
 
+verify_allowfile()
+{
+    allowfile="/var/cron/allow"
+    if [ -e "${allowfile}" ]; then
+        if grep -Eqe "^${user}$" "${allowfile}"; then
+            printok "${user} found in ${allowfile}"
+        else
+            printerr "${user} was not found in ${allowfile}"
+            exit 1
+        fi
+    fi
+}
+
+verify_denyfile()
+{
+    denyfile="/var/cron/deny"
+    if [ -e "${denyfile}" ]; then
+        if grep -Eqe "^${user}$" "${denyfile}"; then
+            printerr "${user} was found in ${denyfile}"
+            exit 1
+        else
+            printok "${user} not found in ${denyfile}"
+        fi
+    fi
+}
+
 install_crontab()
 {
     tab="${localbase}"/share/certbot+cron/crontab
@@ -34,12 +60,11 @@ install_crontab()
 
 ##
 # main
-allowfile="/var/cron/allow"
-if [ -e "${allowfile}" ]; then
-    if ! grep -q "${user}" "${allowfile}"; then
-        printerr "${user} was not found in ${allowfile}"
-        exit 1
-    fi
-    printok "${user} found in ${allowfile}"
+if [ "$(id -u)" != "0" ]; then
+    printerr "you must be root"
+    exit 1
+else
+    verify_denyfile
+    verify_allowfile
+    install_crontab
 fi
-install_crontab

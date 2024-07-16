@@ -3,40 +3,10 @@ set -e
 
 ##
 # variables
-parent="$(dirname $(realpath "$0"))"
-homedir=$(realpath "${parent}/../share/certbot+cron/home/_certbot")
-user="_certbot"
+localbase=$(realpath "$(dirname "$0")"/..)
+libexec="${localbase}"/libexec/certbot+cron
 
 ##
 # main
-if [ "$(id -u)" != "0" ]; then
-   printf "[x] This command must be run by root\n"
-   exit 1
-fi
-
-if id "-u" "${user}" > /dev/null 2>&1; then
-   printf "[-] The ${user} user already exists\n"
-   cp -Rfv "${homedir}"/* /home/${user}/
-else
-    set -x
-    pw useradd \
-        -n "${user}" \
-        -M "u=rwx,g=rx,o=" \
-        -s "/sbin/nologin" \
-        -c "certbot+cron user account" \
-        -d "/home/${user}" \
-        -mk "${homedir}"
-    set +x
-fi
-
-set -x
-find /home/"${user}" \
-    -type d \
-    -exec chmod u=rwx,g=rx,o= {} \;
-find /home/"${user}" \
-    -type f \
-    -exec chmod u=rwx,g=rx,o= {} \;
-chmod u=rw,g=r,o= /home/"${user}"/.env
-set +x
-
-"${parent}"/../libexec/certbot+cron/setup-cron
+"${libexec}"/setup-user
+"${libexec}"/setup-cron
