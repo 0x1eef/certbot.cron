@@ -27,6 +27,7 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 elif id "-u" "${user}" > /dev/null 2>&1; then
     find "${homedir}" \
+         -mindepth 1 \
          -maxdepth 1 \
          -exec cp -Rfv {} /home/"${user}" \;
     printok "user ${user} already exists"
