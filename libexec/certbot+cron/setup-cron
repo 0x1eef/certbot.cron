@@ -4,22 +4,32 @@ set -e
 ##
 # variables
 user="_certbot"
-parent="$(dirname $(realpath "$0"))"
+localbase=$(realpath "$(dirname "$0")"/../..)
+libexec="${localbase}"/libexec/certbot+cron
 
 ##
 # functions
+printok()
+{
+    printf "ok: %s" "${1}" > /dev/stdout
+}
+
+printerr()
+{
+    printf "error: %s" "${1}" > /dev/stderr
+}
+
 install_crontab()
 {
-    set -x
-    tab="$(realpath ${parent}/../../share/certbot+cron/crontab)"
+    tab="${localbase}"/share/certbot+cron/crontab
     dest="/var/cron/tabs/${user}"
     if [ -e "${dest}" ]; then
         yes | crontab -u "${user}" -r
+        printok "crontab removed"
     fi
     crontab -u "${user}" "${tab}"
-    chmod u=rw,g=,o= "${dest}"
-    echo "[-] New crontab: ${dest}"
-    set +x
+    chmod u=rw,go= "${dest}"
+    printok "crontab added"
 }
 
 ##
@@ -27,9 +37,9 @@ install_crontab()
 allowfile="/var/cron/allow"
 if [ -e "${allowfile}" ]; then
     if ! grep -q "${user}" "${allowfile}"; then
-        echo "[x] Add ${user} to ${allowfile} to continue"
+        printerr "${user} was not found in ${allowfile}"
         exit 1
     fi
-    echo "[-] ${user} exists in ${allowfile}"
+    printok "${user} found in ${allowfile}"
 fi
 install_crontab
