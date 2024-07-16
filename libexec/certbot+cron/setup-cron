@@ -11,12 +11,12 @@ libexec="${localbase}"/libexec/certbot+cron
 # functions
 printok()
 {
-    printf "ok: %s" "${1}" > /dev/stdout
+    printf "ok: %s\n" "${1}" > /dev/stdout
 }
 
 printerr()
 {
-    printf "error: %s" "${1}" > /dev/stderr
+    printf "error: %s\n" "${1}" > /dev/stderr
 }
 
 verify_allowfile()
