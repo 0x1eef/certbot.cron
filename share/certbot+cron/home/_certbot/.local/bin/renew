@@ -6,7 +6,6 @@ set -e
 localbase=$(realpath "$(dirname "$0")"/..)
 libexec="${localbase}"/libexec/certbot+cron
 myhome="${HOME}"
-etcdir="${LOCALBASE:-/usr/local}"/etc/letsencrypt
 
 ##
 # functions
@@ -23,7 +22,7 @@ certbot renew \
         --manual-auth-hook "${libexec}"/set-challenge \
         --preferred-challenges dns \
         --work-dir "${localbase}" \
-        --logs-dir "${localbase}"/var/log \
-        --config-dir "${etcdir}"
+        --config-dir "${localbase}" \
+        --logs-dir "${localbase}"/var/log
 set +x
 printok "done"
