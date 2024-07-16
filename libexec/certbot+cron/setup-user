@@ -26,8 +26,10 @@ if [ "$(id -u)" != "0" ]; then
     printerr "you must be root"
     exit 1
 elif id "-u" "${user}" > /dev/null 2>&1; then
+    find "${homedir}"
+         -maxdepth 1 \
+         -exec cp -Rfv {} /home/"${user}" \;
     printok "user ${user} already exists"
-    cp -Rfv "${homedir}"/* /home/${user}/
 else
     set -x
     pw useradd \
