@@ -1,4 +1,5 @@
-#!/bin/sh -e
+#!/bin/sh
+set -e
 
 ##
 # variables
@@ -24,4 +25,5 @@ certbot renew \
         --work-dir "${localbase}" \
         --logs-dir "${localbase}"/var/log \
         --config-dir "${etcdir}"
+set +x
 printok "done"
