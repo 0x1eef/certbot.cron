@@ -51,6 +51,6 @@ deinstall:
 	rm -rf "$(PREFIX)"/libexec/certbot+cron
 	rm -rf "$(PREFIX)"/share/certbot+cron
 	rm -rf /home/_certbot
+	crontab -u _certbot -rf || true
 	pw userdel -n _certbot || true
 	pw groupdel -n _certbot || true
-	crontab -u _certbot -rf || true
